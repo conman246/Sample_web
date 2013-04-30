@@ -8,18 +8,19 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :remember_me,
                   :first_name, :last_name, :profile_name
-  # attr_accessible :title, :body
 
-  Validates :first_name, presence: true
 
-  Validates :last_name, presence: true
+  validate :first_name, presence: true
 
-  Validates :profile_name, presence: true,
-                            uniqueness: true
+  validate :last_name, presence: true
+
+  validate :profile_name, presence: true,
+                            uniqueness: true, 
                             format: {
                               with: /a-zA-Z0-9_-/,
                               message: 'Must be formatted correctly.'
                             }
+
 
   has_many :statuses
 
